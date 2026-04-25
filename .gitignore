@@ -1,0 +1,73 @@
+# -----------------------------
+# 🧾 GENERAL
+# -----------------------------
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.history
+.svn/
+
+# -----------------------------
+# 🧠 IDE FILES
+# -----------------------------
+.idea/
+*.iml
+*.ipr
+*.iws
+
+.vscode/*   # ignore everything
+!.vscode/settings.json   # allow shared settings if needed
+
+# -----------------------------
+# 🐦 FLUTTER / DART
+# -----------------------------
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+/build/
+/coverage/
+
+# Generated docs
+**/doc/api/
+
+# iOS build
+**/ios/Flutter/.last_build_id
+
+# -----------------------------
+# 🤖 ANDROID BUILD
+# -----------------------------
+/android/app/debug
+/android/app/profile
+/android/app/release
+
+# -----------------------------
+# 🍎 iOS BUILD
+# -----------------------------
+/ios/Pods/
+/ios/.symlinks/
+/ios/Flutter/Flutter.framework
+/ios/Flutter/Flutter.podspec
+
+# -----------------------------
+# 🔥 FIREBASE (SENSITIVE)
+# -----------------------------
+android/app/google-services.json
+ios/Runner/GoogleService-Info.plist
+lib/firebase_options.dart
+
+# -----------------------------
+# 🔐 ENV (CRITICAL)
+# -----------------------------
+.env
+.env.*
+!.env.example   # allow example template
+
+# -----------------------------
+# 📦 OPTIONAL (GOOD PRACTICE)
+# -----------------------------
+*.lock
