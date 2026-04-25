@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../services/auth_service.dart';
+import 'register_screen.dart';
 
-class LoginScreen extends ConsumerStatefulWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
   @override
-  ConsumerState<LoginScreen> createState() => _LoginScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends ConsumerState<LoginScreen> {
+class _LoginScreenState extends State<LoginScreen> {
+  final AuthService _authService = AuthService();
+
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
   bool isLoading = false;
 
+  // 🔐 LOGIN FUNCTION (INSIDE STATE CLASS)
   void login() async {
     final email = emailController.text.trim();
     final password = passwordController.text.trim();
@@ -28,18 +32,19 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     setState(() => isLoading = true);
 
     try {
-      // TODO: Replace with Firebase Auth logic
-      await Future.delayed(const Duration(seconds: 2));
+      final user = await (_authService as dynamic).login(email, password);
 
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text("Login Successful 🚀")));
+      if (user != null) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text("Login Successful 🚀")));
 
-      // TODO: Navigate to Dashboard
+        // 👉 TODO: Navigate to Dashboard
+      }
     } catch (e) {
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text("Error: $e")));
+      ).showSnackBar(SnackBar(content: Text(e.toString())));
     }
 
     setState(() => isLoading = false);
@@ -48,82 +53,48 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              /// 🔥 APP TITLE
-              const Text(
-                "Intellectium ERP",
-                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-              ),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              "Login",
+              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 20),
 
-              const SizedBox(height: 8),
+            TextField(
+              controller: emailController,
+              decoration: const InputDecoration(labelText: "Email"),
+            ),
 
-              const Text(
-                "Manage your business smarter",
-                style: TextStyle(color: Colors.grey),
-              ),
+            const SizedBox(height: 10),
 
-              const SizedBox(height: 40),
+            TextField(
+              controller: passwordController,
+              obscureText: true,
+              decoration: const InputDecoration(labelText: "Password"),
+            ),
 
-              /// 📧 EMAIL FIELD
-              TextField(
-                controller: emailController,
-                decoration: InputDecoration(
-                  labelText: "Email",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-              ),
+            const SizedBox(height: 20),
 
-              const SizedBox(height: 16),
-
-              /// 🔒 PASSWORD FIELD
-              TextField(
-                controller: passwordController,
-                obscureText: true,
-                decoration: InputDecoration(
-                  labelText: "Password",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 24),
-
-              /// 🔑 LOGIN BUTTON
-              SizedBox(
-                width: double.infinity,
-                height: 50,
-                child: ElevatedButton(
-                  onPressed: isLoading ? null : login,
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                  child: isLoading
-                      ? const CircularProgressIndicator(color: Colors.white)
-                      : const Text("Login"),
-                ),
-              ),
-
-              const SizedBox(height: 16),
-
-              /// 🔁 REGISTER LINK
-              TextButton(
-                onPressed: () {
-                  // TODO: Navigate to Register Screen
-                },
-                child: const Text("Create Business Account"),
-              ),
-            ],
-          ),
+            ElevatedButton(
+              onPressed: isLoading ? null : login,
+              child: isLoading
+                  ? const CircularProgressIndicator()
+                  : const Text("Login"),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const RegisterScreen()),
+                );
+              },
+              child: const Text("Create Business"),
+            ),
+          ],
         ),
       ),
     );

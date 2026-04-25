@@ -1,11 +1,16 @@
+<<<<<<< HEAD
 # -----------------------------
 # 🧾 GENERAL
 # -----------------------------
+=======
+# Miscellaneous
+>>>>>>> 0eb34df801a8ee6eef44eb836dbbd84adca2d3f1
 *.class
 *.log
 *.pyc
 *.swp
 .DS_Store
+<<<<<<< HEAD
 .history
 .svn/
 
@@ -27,11 +32,38 @@
 .flutter-plugins
 .flutter-plugins-dependencies
 .packages
+=======
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# The .vscode folder contains launch configuration and tasks you configure in
+# VS Code which you may wish to be included in version control, so this line
+# is commented out by default.
+#.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins-dependencies
+>>>>>>> 0eb34df801a8ee6eef44eb836dbbd84adca2d3f1
 .pub-cache/
 .pub/
 /build/
 /coverage/
 
+<<<<<<< HEAD
 # Generated docs
 **/doc/api/
 
@@ -41,10 +73,20 @@
 # -----------------------------
 # 🤖 ANDROID BUILD
 # -----------------------------
+=======
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android Studio will place build artifacts here
+>>>>>>> 0eb34df801a8ee6eef44eb836dbbd84adca2d3f1
 /android/app/debug
 /android/app/profile
 /android/app/release
 
+<<<<<<< HEAD
 # -----------------------------
 # 🍎 iOS BUILD
 # -----------------------------
@@ -56,10 +98,14 @@
 # -----------------------------
 # 🔥 FIREBASE (SENSITIVE)
 # -----------------------------
+=======
+# Firebase
+>>>>>>> 0eb34df801a8ee6eef44eb836dbbd84adca2d3f1
 android/app/google-services.json
 ios/Runner/GoogleService-Info.plist
 lib/firebase_options.dart
 
+<<<<<<< HEAD
 # -----------------------------
 # 🔐 ENV (CRITICAL)
 # -----------------------------
@@ -71,3 +117,8 @@ lib/firebase_options.dart
 # 📦 OPTIONAL (GOOD PRACTICE)
 # -----------------------------
 *.lock
+=======
+# Env files
+.env
+.env.*
+>>>>>>> 0eb34df801a8ee6eef44eb836dbbd84adca2d3f1

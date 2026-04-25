@@ -1,15 +1,36 @@
+import 'package:flutter/foundation.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class FirebaseConfig {
   static FirebaseOptions get options {
-    return FirebaseOptions(
-      apiKey: dotenv.env['FIREBASE_API_KEY']!,
-      appId: dotenv.env['FIREBASE_APP_ID']!,
-      messagingSenderId: dotenv.env['FIREBASE_MESSAGING_SENDER_ID']!,
-      projectId: dotenv.env['FIREBASE_PROJECT_ID']!,
-      authDomain: dotenv.env['FIREBASE_AUTH_DOMAIN'],
-      storageBucket: dotenv.env['FIREBASE_STORAGE_BUCKET'],
-    );
+    if (kIsWeb) return _web;
+    return defaultTargetPlatform == TargetPlatform.android ? _android : _ios;
   }
+
+  static FirebaseOptions get _web => FirebaseOptions(
+    apiKey: dotenv.env['WEB_API_KEY']!,
+    appId: dotenv.env['WEB_APP_ID']!,
+    messagingSenderId: dotenv.env['WEB_SENDER_ID']!,
+    projectId: dotenv.env['WEB_PROJECT_ID']!,
+    authDomain: dotenv.env['WEB_AUTH_DOMAIN'],
+    storageBucket: dotenv.env['WEB_STORAGE_BUCKET'],
+  );
+
+  static FirebaseOptions get _android => FirebaseOptions(
+    apiKey: dotenv.env['ANDROID_API_KEY']!,
+    appId: dotenv.env['ANDROID_APP_ID']!,
+    messagingSenderId: dotenv.env['ANDROID_SENDER_ID']!,
+    projectId: dotenv.env['ANDROID_PROJECT_ID']!,
+    storageBucket: dotenv.env['ANDROID_STORAGE_BUCKET'],
+  );
+
+  static FirebaseOptions get _ios => FirebaseOptions(
+    apiKey: dotenv.env['IOS_API_KEY']!,
+    appId: dotenv.env['IOS_APP_ID']!,
+    messagingSenderId: dotenv.env['IOS_SENDER_ID']!,
+    projectId: dotenv.env['IOS_PROJECT_ID']!,
+    storageBucket: dotenv.env['IOS_STORAGE_BUCKET'],
+    iosBundleId: dotenv.env['IOS_BUNDLE_ID'],
+  );
 }
